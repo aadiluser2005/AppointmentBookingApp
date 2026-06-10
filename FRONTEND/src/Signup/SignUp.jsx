@@ -161,6 +161,9 @@ export default function SignUp() {
   const handleSendOTP = (e) => {
     e.preventDefault();
     setOTPBtn(true);
+    console.log("OTP btn disabled");
+
+    setTimeout(()=>{},5000);
     const form = e.currentTarget;
     // Trigger native HTML5 validation manually
     if (formData.email === "") {
@@ -181,6 +184,8 @@ export default function SignUp() {
           setSnackbarType("success");
 
           setError(res.data.message);
+          setOTPBtn(false);
+      console.log("OTP Btn enabled");
         }
         //  console.log(res);
       })
@@ -188,10 +193,12 @@ export default function SignUp() {
         setOpen(true);
         setSnackbarType("error");
         setError(e.response.data.message);
+        setOTPBtn(false);
+      console.log("OTP Btn enabled");
         // console.log(e);
       });
 
-      setOTPBtn(false);
+      
   };
 
   const handleVerifyOTP = (e) => {
