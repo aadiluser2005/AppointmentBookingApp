@@ -10,8 +10,8 @@ import SnackBar from '../SnackBar/SnackBar.jsx'
 export default function SignUp() {
 
   const [formData, setFormData] = useState({
-    pass: "",
-    email: "", 
+    pass: "12345678",
+    email: "admin@gmail.com", 
   });
    
   const {setSnackBarType, setSnackBarMessage,setSnackBarOpen,snackBarOpen, snackBarMessage,snackBarType}=useDashBoardContext();
