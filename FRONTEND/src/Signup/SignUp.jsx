@@ -18,8 +18,9 @@ export default function SignUp() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [emailVerified, setEmailVerified] = useState(false);
+  const [OTPBtn,setOTPBtn]=useState(false);
 
-  const [showOTP, setShowOTP] = useState(false);
+  const [showOTPBox, setshowOTPBox] = useState(false);
   const {
     setOpen,
     setError,
@@ -48,7 +49,7 @@ export default function SignUp() {
         username: "",
         password: "",
       }));
-    } else if (!emailVerified && showOTP === true) {
+    } else if (!emailVerified && showOTPBox === true) {
       return;
     } else {
       setFormData({ fullname: "", password: "", email: "" });
@@ -159,7 +160,7 @@ export default function SignUp() {
 
   const handleSendOTP = (e) => {
     e.preventDefault();
-
+    setOTPBtn(true);
     const form = e.currentTarget;
     // Trigger native HTML5 validation manually
     if (formData.email === "") {
@@ -175,7 +176,7 @@ export default function SignUp() {
       .then((res) => {
         //  console.log(res.status);
         if (res.status === 200) {
-          setShowOTP(true);
+          setshowOTPBox(true);
           setOpen(true);
           setSnackbarType("success");
 
@@ -189,6 +190,8 @@ export default function SignUp() {
         setError(e.response.data.message);
         // console.log(e);
       });
+
+      setOTPBtn(false);
   };
 
   const handleVerifyOTP = (e) => {
@@ -213,7 +216,7 @@ export default function SignUp() {
         //console.log(res.status);
         if (res.status === 200) {
           setEmailVerified(true);
-          setShowOTP(false);
+          setshowOTPBox(false);
           setOpen(true);
           setSnackbarType("success");
 
@@ -347,7 +350,7 @@ export default function SignUp() {
       />
       {formState === 0 && (
         <>
-          {showOTP && (
+          {showOTPBox && (
             <TextField
               label="OTP"
               type="number"
@@ -367,14 +370,16 @@ export default function SignUp() {
           {!emailVerified && (
             <Button
               variant="contained"
-              onClick={showOTP ? handleVerifyOTP : handleSendOTP}
+              onClick={showOTPBox ? handleVerifyOTP : handleSendOTP}
               sx={{
                 borderRadius: "2rem",
                 width: "41%",
                 margin: "0 auto",
               }}
+
+              disabled={showOTPBox==false&&OTPBtn==true}
             >
-              {showOTP ? `Verify OTP` : `Send OTP`}
+              {showOTPBox ? `Verify OTP` : `Send OTP`}
             </Button>
             // <button
             //   type="submit"
