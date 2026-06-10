@@ -424,7 +424,7 @@ export default function SignUp() {
         label="Password"
         type={showPassword === true ? "text" : "password"}
         name="password"
-        value={formData.password}
+        value={formData.email}
         onChange={handleChange}
         fullWidth
         required
@@ -460,7 +460,8 @@ export default function SignUp() {
         </span>
       )}
 
-      <Button
+     
+        <Button
         variant="contained"
         type="submit"
         sx={{
@@ -475,6 +476,33 @@ export default function SignUp() {
         Submit
       </Button>
 
+
+
+            <Button
+        variant="contained"
+        type="submit"
+        sx={{
+          borderRadius: "2rem",
+          width: "90%",
+          margin: "0 auto",
+          height: "fit-Content",
+        }} 
+
+         onClick={()=>{setFormData( {password: "Demouser@123",
+    email: "appointmentdemouser@gmail.com"})}}
+        // onClick={handleSubmit}
+        disabled={formState === 0 && !emailVerified}
+         
+       
+        
+      >
+        Continue with Demo Credentials
+      </Button>
+
+
+
+
+ <hr />
       
       <Button
         variant="contained"
