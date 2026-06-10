@@ -424,7 +424,7 @@ export default function SignUp() {
         label="Password"
         type={showPassword === true ? "text" : "password"}
         name="password"
-        value={formData.email}
+        value={formData.password}
         onChange={handleChange}
         fullWidth
         required
@@ -488,7 +488,7 @@ export default function SignUp() {
           height: "fit-Content",
         }} 
 
-         onClick={()=>{setFormData( {password: "Demouser@123",
+         onClick={()=>{setFormData( {fullname:"",password:"Demouser@123",
     email: "appointmentdemouser@gmail.com"})}}
         // onClick={handleSubmit}
         disabled={formState === 0 && !emailVerified}
