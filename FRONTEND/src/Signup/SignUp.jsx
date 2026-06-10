@@ -475,6 +475,28 @@ export default function SignUp() {
         Submit
       </Button>
 
+      
+      <Button
+        variant="contained"
+        type="submit"
+        sx={{
+          borderRadius: "2rem",
+          width: "70%",
+          margin: "0 auto",
+          height: "fit-Content",
+        }}
+         onClick={()=>{
+  window.open(
+    `${import.meta.env.VITE_DASHBOARD_URL}`,
+    "_blank",
+    "noopener,noreferrer"
+  );
+}}
+       
+      >
+        Log in as Admin ?
+      </Button>
+
       <Button
         variant="contained"
         type="submit"
