@@ -117,7 +117,7 @@ export default function SignUp() {
         setOpen(true);
         if (e.response) {
           // backend responded with an error status
-          if (e.response.status === 400) {
+          if (e.response.status === 404) {
             setError(e.response.data.message);
           } else if (e.response.status === 500) {
             setError("Some internal error occurred");
@@ -190,11 +190,12 @@ export default function SignUp() {
         //  console.log(res);
       })
       .catch((e) => {
+         setOTPBtn(false);
+      console.log("OTP Btn enabled");
         setOpen(true);
         setSnackbarType("error");
         setError(e.response.data.message);
-        setOTPBtn(false);
-      console.log("OTP Btn enabled");
+       
         // console.log(e);
       });
 

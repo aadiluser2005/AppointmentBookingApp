@@ -13,10 +13,12 @@ import LoadingSpinner from '../Loading/LoadingSpinner.jsx'
 
 
 function BookingAppointment() {
-     const {setDates,open,error,setOpen,snackbarType,showLoading}=useBooking();
+     const {setDates,open,error,setOpen,snackbarType,showLoading,setShowLoading}=useBooking();
  
    useEffect(()=>{
     window.scrollTo(0,0);
+
+      setShowLoading(true);
    
       async function fetchDates() {
         const res=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/appointmentService/slots/getDates`);
@@ -25,7 +27,8 @@ function BookingAppointment() {
        // console.log(res.data);
       }
       fetchDates();
-
+    
+      setShowLoading(false);
      
    },[]);
   
