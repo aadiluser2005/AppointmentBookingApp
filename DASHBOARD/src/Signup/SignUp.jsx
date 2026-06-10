@@ -123,6 +123,8 @@ export default function SignUp() {
         }}
       />
 
+      <p>* <u>Demo credentials provided above</u></p>
+
       {showPassword === false ? (
         <span style={{ display: "flex" }}>
           <img

@@ -106,7 +106,7 @@ function UsersSection() {
         <div><h3>All Users</h3></div>
        <div className='searchBar'>
         
-      <Toolbar>
+      {/* <Toolbar>
           
          
           <Search>
@@ -118,7 +118,7 @@ function UsersSection() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-        </Toolbar>
+        </Toolbar> */}
   
        </div>
        </div>

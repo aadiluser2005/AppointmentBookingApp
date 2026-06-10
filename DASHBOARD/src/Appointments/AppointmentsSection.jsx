@@ -130,7 +130,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       
        <div className='searchBar'>
         
-      <Toolbar>
+      {/* <Toolbar>
           
          
           <Search>
@@ -142,7 +142,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-        </Toolbar>
+        </Toolbar> */}
   
        </div>
        </div>
