@@ -94,7 +94,7 @@ const getChartData = async () => {
     const data = await appointmentModel.aggregate([
       {
         $match: {
-          date: { $gte: startOfWeek, $lt: endOfWeek },
+          dateBooked: { $gte: startOfWeek, $lt: endOfWeek },
         },
       },
       {
