@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-import { appointmentRoutes } from "./routes/appointment.route.js";
+import { appointmentRouter } from "./routes/appointment.route.js";
 import { slotRouter } from "./routes/slot.route.js";
 import { appointmentModel } from "./models/appointment.model.js";
 import cors from "cors";
@@ -45,7 +45,7 @@ app.get("/health", (req, res) => res.status(200).json({ message:'Working' }));
 
 
 // mount routes (authMiddleware still applied if you require it)
-app.use("/appointment", authMiddleware, appointmentRoutes);
+app.use("/appointment", authMiddleware, appointmentRouter);
 app.use("/slots", slotRouter);
 app.use("/admin",adminAppointmentRouter);
 
