@@ -488,7 +488,7 @@ export default function SignUp() {
           height: "fit-Content",
         }} 
 
-         onClick={()=>{setFormData( {fullname:"",password:"Demouser@123",
+         onClick={()=>{setFormData( {password:"Demouser@123",
     email: "appointmentdemouser@gmail.com"})}}
         // onClick={handleSubmit}
         disabled={formState === 0 && !emailVerified}
