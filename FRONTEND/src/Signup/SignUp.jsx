@@ -112,12 +112,12 @@ export default function SignUp() {
         }
       })
       .catch((e) => {
-        // console.log(e);
+         console.log(e);
         setSnackbarType("error");
         setOpen(true);
         if (e.response) {
           // backend responded with an error status
-          if (e.response.status === 404) {
+          if (e.response.status === 404||e.response.status==400) {
             setError(e.response.data.message);
           } else if (e.response.status === 500) {
             setError("Some internal error occurred");
