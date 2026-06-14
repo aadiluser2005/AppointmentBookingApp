@@ -43,7 +43,7 @@ function MyBookingPage() {
     axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/appointmentService/appointment/upcomingAppointments`,{withCredentials:true}).then((res)=>{
        setAppointments(res.data);
           
-       console.log(res.data);
+       //console.log(res.data);
     }).catch(e=>{
          setSnackbarType("error");
          //console.log(e);

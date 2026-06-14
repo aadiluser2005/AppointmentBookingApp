@@ -66,7 +66,7 @@ function Confirmation() {
         setShowLoading(false);
       
        }).catch(e=>{
-           console.log(e);
+           //console.log(e);
         setSnackbarType("error");
         setOpen(true);
        setError(e.response.data.message)

@@ -9,7 +9,7 @@ function AppointmentCard({patientName,appointmentDate,dateBooked,phoneNumber,slo
 const{setCurrPatientName,setCurrPhoneNumber,setCurrAppointmentDate,setCurrSlotNumber, setEditOpen,setAppointmentId, setDeleteOpen}=useAppointment();
  const {setSlots,past}=useBooking();
    
-  console.log("Value of isActive =>",  isActive);
+ // console.log("Value of isActive =>",  isActive);
 
 const handleEdit=async()=>{
   setAppointmentId(appointmentId);
@@ -24,7 +24,7 @@ const handleEdit=async()=>{
 
     setSlots(res.data);
 
-  console.log("edit triggered");
+  //console.log("edit triggered");
   
 }
 

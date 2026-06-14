@@ -25,7 +25,7 @@ function AppointmentDelete() {
            
            },1500);
            setShowLoading(false);
-        console.log(res.data.message);
+        //console.log(res.data.message);
       }).catch(e=>{
         setShowLoading(false);
            setSnackbarType("warning");

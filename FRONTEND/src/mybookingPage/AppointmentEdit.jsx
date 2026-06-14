@@ -38,7 +38,7 @@ function AppointmentEdit() {
   const handleSave = () => {
         handleClose();
     setShowLoading(true);
-    console.log("Appointment ID : ",appointmentId," Phone number : ",currPhoneNumber," currName : ",currPatientName," currSlotNumber : ",currSlotNumber);
+   // console.log("Appointment ID : ",appointmentId," Phone number : ",currPhoneNumber," currName : ",currPatientName," currSlotNumber : ",currSlotNumber);
     // handle save logic here (API call or context update)
      axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/appointmentService/appointment/update`,{
         appointmentId:appointmentId,
@@ -61,7 +61,7 @@ function AppointmentEdit() {
          },1500);
 
           setShowLoading(false);
-      console.log(res.data.message);
+     // console.log(res.data.message);
     }).catch(e=>{
           setSnackbarType("warning");
          //console.log(e);

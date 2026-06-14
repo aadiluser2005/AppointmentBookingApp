@@ -112,7 +112,7 @@ export default function SignUp() {
         }
       })
       .catch((e) => {
-        console.log(e);
+        //console.log(e);
         setSnackbarType("error");
         setOpen(true);
         if (e.response) {
@@ -161,7 +161,7 @@ export default function SignUp() {
   const handleSendOTP = (e) => {
     e.preventDefault();
     setOTPBtn(true);
-    console.log("OTP btn disabled");
+    //console.log("OTP btn disabled");
 
     setTimeout(() => { }, 5000);
     const form = e.currentTarget;
@@ -173,7 +173,7 @@ export default function SignUp() {
       setError("Please provide valid details");
       return; // stop submission
     }
-    console.log(`${import.meta.env.VITE_BACKEND_URL}/api/v1/userService/user/sendOTP`);
+    //console.log(`${import.meta.env.VITE_BACKEND_URL}/api/v1/userService/user/sendOTP`);
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/userService/user/sendOTP`, { email: formData.email })
       .then((res) => {
@@ -185,13 +185,13 @@ export default function SignUp() {
 
           setError(res.data.message);
           setOTPBtn(false);
-          console.log("OTP Btn enabled");
+         // console.log("OTP Btn enabled");
         }
         //  console.log(res);
       })
       .catch((e) => {
         setOTPBtn(false);
-        console.log("OTP Btn enabled");
+       // console.log("OTP Btn enabled");
         setOpen(true);
         setSnackbarType("error");
         setError(e.response.data.message);
@@ -245,7 +245,7 @@ export default function SignUp() {
       if (authResult.code) {
         setShowLoading(true);
 
-        console.log(authResult.code);
+       // console.log(authResult.code);
         axios
           .get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/userService/user/auth/google?code=${authResult.code}`, { withCredentials: true })
           .then((res) => {
@@ -266,10 +266,10 @@ export default function SignUp() {
             setError(e.response.data.message);
             setShowLoading(false);
           });
-        console.log(authResult.code);
+        //console.log(authResult.code);
       }
     } catch (error) {
-      console.log(`Error occurred ${authResult}`);
+     // console.log(`Error occurred ${authResult}`);
     }
   };
 
