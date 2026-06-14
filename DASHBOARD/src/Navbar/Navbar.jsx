@@ -22,7 +22,7 @@ function Navbar() {
               window.location.reload();
                setShowLoading(false)
           },1000);
-      console.log( res.data.message);     
+      //console.log( res.data.message);     
     }).catch((e)=>{
      
      // console.log(e);

@@ -30,7 +30,7 @@ useEffect(() => {
 }, [dashBoardInfo]);
 
 
-  // console.log("Data is ============= ",chartData);
+   console.log("Data is ============= ",chartData);
   const data = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [

@@ -12,7 +12,7 @@ function Hero() {
 
     const {dashBoardInfo}=useDashBoardContext();
       const navigate=useNavigate();
-    console.log(dashBoardInfo);
+   // console.log(dashBoardInfo);
    
     const redirectToAppointment=()=>{
        

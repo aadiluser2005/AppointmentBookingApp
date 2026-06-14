@@ -25,14 +25,14 @@ function Dashboard() {
   useEffect(()=>{
     setShowLoading(true)
          axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/adminService/appointments/dashboardInfo`,{withCredentials:true}).then((res)=>{
-          console.log("dashboard print ==========",res.data);
+          //console.log("dashboard print ==========",res.data);
     setDashBoardInfo(res.data.info);
       
     setShowLoading(false);
 
    }).catch(e=>{
       
-    console.log(e);
+   // console.log(e);
     setShowLoading(false);
     navigate("/login");
     

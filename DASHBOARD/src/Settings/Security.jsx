@@ -45,7 +45,7 @@ function Security() {
 
 
       }).catch((e)=>{
-          console.log(e);
+         // console.log(e);
          setSnackBarMessage(e.response.data.message);
          setSnackBarOpen(true);
          setSnackBarType("error");

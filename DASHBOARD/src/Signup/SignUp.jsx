@@ -47,13 +47,13 @@ export default function SignUp() {
        setSnackBarMessage(res.data.message);
        setSnackBarType("success");
        navigate("/");
-       console.log(res);
+      // console.log(res);
       })
       .catch((e) => {
            setSnackBarOpen(true);
        setSnackBarMessage(e.response.data.message);
        setSnackBarType("error");
-        console.log(e);
+       // console.log(e);
       });
   };
 

@@ -59,7 +59,7 @@ function ProfileInfo() {
                   phone:res.data.message.phoneNumber });
   })
   .catch(e=>{
-  console.log(e)
+  //console.log(e)
     if(e.response.status===401||e.response.status===500||e.response.status===403){
              navigate("/login");
          }

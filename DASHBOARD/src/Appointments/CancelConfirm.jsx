@@ -24,7 +24,7 @@ function CancelConfirm() {
          window.location.reload();
          setShowLoading(false);
         },2000);
-      console.log(res);
+     // console.log(res);
       
     })
     .catch(e=>{
@@ -33,7 +33,7 @@ function CancelConfirm() {
       setSnackBarMessage(e.response.data.message);
       setSnackBarType("error");
       setShowLoading(false);
-      console.log(e);
+     // console.log(e);
     })
     
    }

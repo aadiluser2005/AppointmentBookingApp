@@ -30,7 +30,7 @@ function AppointmentsSection() {
         setAppointment(res.data.DBappointment);        
     }).catch(e=>{
        navigate("/login");
-      console.log(e);
+      //console.log(e);
     })
     
     

@@ -31,7 +31,7 @@ function ActivateConfirm() {
               setSnackBarMessage(e.response.data.message);
               setSnackBarType("error");
                 setShowLoading(false);
-        console.log(e);
+        //console.log(e);
       })
      
      

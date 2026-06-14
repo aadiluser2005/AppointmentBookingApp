@@ -70,7 +70,7 @@ function UsersSection() {
         setUsers(res.data.allUsers)
       }).catch(e=>{
          navigate("/login");
-        console.log(e);
+       // console.log(e);
       })
 
 
