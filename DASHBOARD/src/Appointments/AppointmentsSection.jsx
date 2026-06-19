@@ -12,62 +12,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../Loading/LoadingSpinner.jsx";
 
-function AppointmentsSection() {
-    
-  const times=["10:00AM","12:00PM","02:00PM","04:00PM"];
-
-  const [appointment,setAppointment]=useState([]);
-
-  const {setCancellingAppointmentID, setCancellingPhone,
-              setCancellingPatientName,setCancelOpen,cancelOpen,showLoading,setShowLoading}=useDashBoardContext();
-
-              const navigate=useNavigate();
 
 
-  useEffect(()=>{
-    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/adminService/appointments/getAppointments`,{withCredentials:true}).then((res)=>{
-    //  console.log( "Response data ===============>",res.data.DBappointment);
-        setAppointment(res.data.DBappointment);        
-    }).catch(e=>{
-       navigate("/login");
-      //console.log(e);
-    })
-    
-    
-  
-  },[]);
-
-  const showUpcoming=()=>{
-    setShowLoading(true);
-      axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/adminService/appointments/getUpcomingAppointments`,{withCredentials:true}).then((res)=>{
-     // console.log( "Response data ===============>",res.data.message);
-        setAppointment(res.data.message);   
-        setShowLoading(false);     
-    }).catch(e=>{
-       setShowLoading(false); 
-       navigate("/login");
-      console.log(e);
-    })
-
-  }
-
-
-  
-  
-   const handleCancel=(uniqueID,patientName,phoneNumber)=>{
-         setCancellingAppointmentID(uniqueID);
-         setCancellingPatientName(patientName);
-         setCancellingPhone(phoneNumber);
-         setCancelOpen(true);
-
-         
-   }
-  
-  
- // console.log("My data ===========> ",appointment);
-
-
-  const Search = styled('div')(({ theme }) => ({
+ const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: "1rem",
   backgroundColor: "#E7F7FF",
@@ -109,11 +56,106 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+function AppointmentsSection() {
+    
+  const times=["10:00AM","12:00PM","02:00PM","04:00PM"];
+
+  const [appointment,setAppointment]=useState([]);
+  const [filteredAppointments,setfilteredAppointments]=useState([]);
+  const [showUpcomingBtn,setShowUpcomingBtn]=useState(false);
+  const [queryValue,setQueryValue]=useState('');
+  const [searchedAppointments,setSearchedAppointments]=useState([]);
+
+  const {setCancellingAppointmentID, setCancellingPhone,
+              setCancellingPatientName,setCancelOpen,cancelOpen,showLoading,setShowLoading}=useDashBoardContext();
+
+              const navigate=useNavigate();
+
+
+  useEffect(()=>{
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/adminService/appointments/getAppointments`,{withCredentials:true}).then((res)=>{
+     // console.log( "Response data ===============>",res.data.DBappointment);
+        setAppointment(res.data.DBappointment);        
+    }).catch(e=>{
+       navigate("/login");
+      //console.log(e);
+    })
+    
+    
+  
+  },[]);
+
+  const showUpcoming=()=>{
+   // setShowLoading(true);
+    //   axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/adminService/appointments/getUpcomingAppointments`,{withCredentials:true}).then((res)=>{
+    //  // console.log( "Response data ===============>",res.data.message);
+    //     setAppointment(res.data.message);   
+    //     setShowLoading(false);     
+    // }).catch(e=>{
+    //    setShowLoading(false); 
+    //    navigate("/login");
+    //   console.log(e);
+    // })
+     setShowUpcomingBtn(prev=>!prev);
+    const now=new Date();
+    now.setUTCHours(0,0,0,0);
+
+    const isoNow=now.toISOString();
+    
+      
+    
+    const filteredAppointment=appointment.filter((el)=>el.appointmentDate>=isoNow);
+
   
 
-// if (!appointment) {
-//   return <div style={{ textAlign: 'center', marginTop: '2rem' }}>Loading...</div>;
-// }
+    setfilteredAppointments(filteredAppointment);
+
+  }
+
+  const handleSearch=(e)=>{
+          
+  
+
+  var value=e.target.value;
+  setQueryValue(value);
+   value=value.toLowerCase();
+   var searchedAppointments=[];
+
+   if(showUpcomingBtn){
+         searchedAppointments=filteredAppointments.filter((el)=>el.patientName.toLowerCase().includes(value));
+   }else{
+        searchedAppointments=appointment.filter((el)=>el.patientName.toLowerCase().includes(value));
+   }
+   
+ 
+
+  //console.log(searchedAppointments);
+
+  setSearchedAppointments(searchedAppointments);
+
+  
+  }
+
+
+  
+  
+   const handleCancel=(uniqueID,patientName,phoneNumber)=>{
+         setCancellingAppointmentID(uniqueID);
+         setCancellingPatientName(patientName);
+         setCancellingPhone(phoneNumber);
+         setCancelOpen(true);
+
+         
+   }
+  
+  
+ // console.log("My data ===========> ",appointment);
+
+
+ 
+  
+
  return(
 
   showLoading?(<LoadingSpinner></LoadingSpinner>):
@@ -126,11 +168,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
        
        <div className='upperDiv'>
         <div><h3>All Appointments</h3>
-          <button onClick={showUpcoming}>Show  upcoming </button></div>
+          <button onClick={showUpcoming}>{showUpcomingBtn?"Show All":"Show upcoming"} </button></div>
       
        <div className='searchBar'>
         
-      {/* <Toolbar>
+      <Toolbar>
           
          
           <Search>
@@ -140,9 +182,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
             <StyledInputBase
               placeholder="Search by name"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleSearch}
+              value={queryValue}
             />
           </Search>
-        </Toolbar> */}
+        </Toolbar>
   
        </div>
        </div>
@@ -159,7 +203,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         
         ></AppointmentCard>
 
-       {appointment.length > 0 ? (
+
+        {queryValue===""?
+         showUpcomingBtn===false?
+            
+            appointment.length > 0 ? (
     appointment.map((item) => (
       <AppointmentCard
         key={item._id}
@@ -176,7 +224,52 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     ))
   ) : (
     <div style={{ textAlign: "center", marginTop: "2rem" }}>No Appointments to show ...........</div>
-  )}
+  )
+        :
+          
+        filteredAppointments.length > 0 ? (
+    filteredAppointments.map((item) => (
+      <AppointmentCard
+        key={item._id}
+        patientName={item.patientName}
+        email={item.email}
+        date={item.appointmentDate}
+        slotTime={times[item.slotNumber - 1]}
+        bookingDate={item.dateBooked}
+        status={item.confirmStatus}
+        isOld={item.isOld}
+        isHeader={false}
+        cancel={() => handleCancel(item.uniqueID, item.patientName, item.phoneNumber)}
+      />
+    ))
+  ) : (
+    <div style={{ textAlign: "center", marginTop: "2rem" }}>No Appointments to show ...........</div>
+  )
+        :
+       searchedAppointments.length > 0 ? (
+    searchedAppointments.map((item) => (
+      <AppointmentCard
+        key={item._id}
+        patientName={item.patientName}
+        email={item.email}
+        date={item.appointmentDate}
+        slotTime={times[item.slotNumber - 1]}
+        bookingDate={item.dateBooked}
+        status={item.confirmStatus}
+        isOld={item.isOld}
+        isHeader={false}
+        cancel={() => handleCancel(item.uniqueID, item.patientName, item.phoneNumber)}
+      />
+    ))
+  ) : (
+    <div style={{ textAlign: "center", marginTop: "2rem" }}>No Appointments to show ...........</div>
+  )
+        }
+
+        {
+        }
+
+       
        </div>
        
       

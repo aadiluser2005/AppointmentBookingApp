@@ -10,14 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../Loading/LoadingSpinner.jsx';
 
 
-function UsersSection() {
 
-
-    const { setDeactivateOpen,setAcitvateOpen,setUserName,setUserMail,showLoading}=useDashBoardContext();
-
-    const navigate=useNavigate();
-
-    const Search = styled('div')(({ theme }) => ({
+ const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: "1rem",
     backgroundColor: "#E7F7FF",
@@ -60,13 +54,26 @@ function UsersSection() {
     },
   }));
 
+
+function UsersSection() {
+
+
+    const { setDeactivateOpen,setAcitvateOpen,setUserName,setUserMail,showLoading}=useDashBoardContext();
+
+    const navigate=useNavigate();
+
+   
+
    
   const [users,setUsers]=useState([]);
+  const [searchedUser,setSearchedUser]=useState([]);
+  const [query,setQuery]=useState("");
 
 
   useEffect(()=>{
        
       axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/adminService/users/allUser`,{withCredentials:true}).then((res)=>{
+       // console.log(res.data.allUsers);
         setUsers(res.data.allUsers)
       }).catch(e=>{
          navigate("/login");
@@ -94,6 +101,21 @@ function UsersSection() {
    // console.log("Activate user with email => ",email);
   }
 
+  const handleChange=(e)=>{
+
+    var value=e.target.value;
+    setQuery(value);
+    value=value.toLowerCase();
+
+
+
+    const searchedUser=users.filter((el)=>el.fullName.toLowerCase().includes(value));
+
+    //console.log(searchedUser);
+  
+    setSearchedUser(searchedUser);
+  }
+
 
   return(
  
@@ -106,7 +128,7 @@ function UsersSection() {
         <div><h3>All Users</h3></div>
        <div className='searchBar'>
         
-      {/* <Toolbar>
+      <Toolbar>
           
          
           <Search>
@@ -116,9 +138,11 @@ function UsersSection() {
             <StyledInputBase
               placeholder="Search by name"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleChange}
+              value={query}
             />
           </Search>
-        </Toolbar> */}
+        </Toolbar>
   
        </div>
        </div>
@@ -134,7 +158,8 @@ function UsersSection() {
         
         ></UsersCard>
 
-        { users.length>0?(
+        {query===""?
+         users.length>0?(
         
         users.map((item)=>(
 
@@ -149,7 +174,29 @@ function UsersSection() {
             
         ></UsersCard>
         ))
-      ):((<><div style={{ textAlign: "center", marginTop: "2rem" }}>No Users to show ...........</div></>))}
+      ):((<><div style={{ textAlign: "center", marginTop: "2rem" }}>No Users to show ...........</div></>))
+        
+        :
+        
+        searchedUser.length>0?(
+        
+        searchedUser.map((item)=>(
+
+            <UsersCard
+           userName={item.fullName}
+           date={item.joinDate}
+           email={item.email}
+           status={item.activeStatus}
+           isHeader={false}
+           block= {()=>  handleBlock(item.email,item.fullName)}
+           activate={()=>handleActivate(item.email,item.fullName)}
+            
+        ></UsersCard>
+        ))
+      ):((<><div style={{ textAlign: "center", marginTop: "2rem" }}>No Users to show ...........</div></>))
+        }
+
+        { }
        </div>
        
       
