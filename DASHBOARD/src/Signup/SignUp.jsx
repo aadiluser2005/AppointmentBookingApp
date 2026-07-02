@@ -123,8 +123,7 @@ export default function SignUp() {
         }}
       />
 
-      <p>* <u>Demo credentials are provided above.</u></p>
-<p>* <u>For the best experience, please use a desktop or enable "Desktop site" in your mobile browser.</u></p>
+     
 
       {showPassword === false ? (
         <span style={{ display: "flex" }}>
@@ -149,6 +148,9 @@ export default function SignUp() {
           <p className="ms-2">Hide password</p>
         </span>
       )}
+
+       <p>* <u>Demo credentials are provided above.</u></p>
+<p>* <u>For the best experience, please use a desktop or enable "Desktop site" in your mobile browser.</u></p>
 
       <Button
         variant="contained"
