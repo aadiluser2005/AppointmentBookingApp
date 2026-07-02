@@ -123,7 +123,8 @@ export default function SignUp() {
         }}
       />
 
-      <p>* <u>Demo credentials provided above</u></p>
+      <p>* <u>Demo credentials are provided above.</u></p>
+<p>* <u>For the best experience, please use a desktop or enable "Desktop site" in your mobile browser.</u></p>
 
       {showPassword === false ? (
         <span style={{ display: "flex" }}>
