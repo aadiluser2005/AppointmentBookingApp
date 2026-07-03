@@ -81,15 +81,37 @@ export const dashboardInfo = async (req, res) => {
   }
 };
 
-// ✅ Helper function – returns only data (no req/res)
+//  Helper function – returns only data (no req/res)
 const getChartData = async () => {
   try {
-    const startOfWeek = new Date();
-    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Sunday
-    startOfWeek.setHours(0, 0, 0, 0);
+      
+    const now = new Date();
 
-    const endOfWeek = new Date(startOfWeek);
-    endOfWeek.setDate(endOfWeek.getDate() + 7);
+// Convert current time to IST
+const istNow = new Date(
+  now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+);
+
+// Start of week in IST
+const startOfWeekIST = new Date(istNow);
+startOfWeekIST.setDate(startOfWeekIST.getDate() - startOfWeekIST.getDay());
+startOfWeekIST.setHours(0, 0, 0, 0);
+
+// End of week in IST
+const endOfWeekIST = new Date(startOfWeekIST);
+endOfWeekIST.setDate(endOfWeekIST.getDate() + 7);
+
+// Convert IST boundaries back to UTC
+const startOfWeek = new Date(
+  startOfWeekIST.getTime() - 5.5 * 60 * 60 * 1000
+);
+
+const endOfWeek = new Date(
+  endOfWeekIST.getTime() - 5.5 * 60 * 60 * 1000
+);
+
+     console.log(startOfWeek);
+     console.log(endOfWeek);
 
     const data = await appointmentModel.aggregate([
       {
@@ -98,13 +120,16 @@ const getChartData = async () => {
         },
       },
       {
-        $group: {
-          _id: { $dayOfWeek: "$date" }, // 1=Sunday, 7=Saturday
-          totalBookings: { $sum: 1 },
-        },
+         $group: {
+    _id: {
+      $dayOfWeek: {date: "$dateBooked",timezone: "Asia/Kolkata"
+      }
+    },
+    totalBookings: { $sum: 1 }
+  },
       },
       {
-        $sort: { "_id": 1 },
+        $sort: { _id: 1 },
       },
     ]);
 
@@ -113,16 +138,17 @@ const getChartData = async () => {
     const formatted = Array(7)
       .fill(0)
       .map((_, i) => {
-        const found = data.find((d) => d._id === i + 1);
+        const found = data.find((d) => d._id === i + 2);
         return found ? found.totalBookings : 0;
       });
 
+    console.log("Yielded Data ", formatted);
     return {
       data: formatted,
     };
   } catch (error) {
-    console.error(error);
-    return {  data: [] };
+    console.log(error);
+    return { data: [] };
   }
 };
 
