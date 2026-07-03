@@ -11,6 +11,16 @@ const{setCurrPatientName,setCurrPhoneNumber,setCurrAppointmentDate,setCurrSlotNu
    
  // console.log("Value of isActive =>",  isActive);
 
+
+ //converting dateBooked to IST date for better accuracy
+ const date = new Date(dateBooked);
+
+const istDate = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Kolkata",
+}).format(date);
+
+// console.log(istDate);
+
 const handleEdit=async()=>{
   setAppointmentId(appointmentId);
   setCurrPatientName(patientName);
@@ -56,7 +66,7 @@ const times=["10:00AM","12:00PM","02:00PM","04:00PM"];
          
          <div className='row mt-3 mb-0  '>
           <div className='col-md-6 col-12'><p>Appointment Date : <b>{ (appointmentDate).slice(0,10)}</b></p></div>
-            <div className='col-md-6 col-12 '><p>Booked On : <b>{ (dateBooked).slice(0,10)}</b> </p> </div>
+            <div className='col-md-6 col-12 '><p>Booked On : <b>{istDate}</b> </p> </div>
          </div>
           <hr />
 
