@@ -24,6 +24,7 @@ function LandingPage() {
 
     axios.get(`${import.meta.env.VITE_APPOINTMENT_URL}`).catch(() => {}); 
     axios.get(`${import.meta.env.VITE_USER_URL}`).catch(() => {});
+    axios.get(`${import.meta.env.VITE_ADMIN_URL}`).catch(() => {});
 
     
      },[]);
