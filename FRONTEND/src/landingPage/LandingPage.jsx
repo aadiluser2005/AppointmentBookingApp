@@ -20,6 +20,10 @@ function LandingPage() {
       setDateSelected(false);
     setSlotSelected(false);
     setShowConfirmation(false);
+
+    axios.get(`${import.meta.env.VITE_APPOINTMENT_URL}`).then().catch();
+    axios.get(`${import.meta.env.VITE_USER_URL}`).then().catch();
+
     
      },[]);
 
