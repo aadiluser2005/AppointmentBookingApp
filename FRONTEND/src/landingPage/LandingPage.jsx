@@ -6,7 +6,7 @@ import SessionRedirect from './SessionRedirect.jsx'
 import "./landingPage.css";
 import { useBooking } from '../Contexts/BookingContext.jsx'
 import SnackBar from '../SnackBar/SnackBar.jsx';
-import axios from 'axios'
+import axios from 'axios';
 
 
 function LandingPage() {
@@ -22,8 +22,8 @@ function LandingPage() {
     setSlotSelected(false);
     setShowConfirmation(false);
 
-    axios.get(`${import.meta.env.VITE_APPOINTMENT_URL}`).then().catch();
-    axios.get(`${import.meta.env.VITE_USER_URL}`).then().catch();
+    axios.get(`${import.meta.env.VITE_APPOINTMENT_URL}`).catch(() => {}); 
+    axios.get(`${import.meta.env.VITE_USER_URL}`).catch(() => {});
 
     
      },[]);
