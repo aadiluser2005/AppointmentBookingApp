@@ -6,6 +6,7 @@ import SessionRedirect from './SessionRedirect.jsx'
 import "./landingPage.css";
 import { useBooking } from '../Contexts/BookingContext.jsx'
 import SnackBar from '../SnackBar/SnackBar.jsx';
+import axios from 'axios'
 
 
 function LandingPage() {
